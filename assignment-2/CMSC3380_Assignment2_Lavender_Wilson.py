@@ -6,7 +6,7 @@
 
 # notes:
 #   - use list comprehensions
-#   - data file is nonsense...?
+#   - data file is binary, not text
 
 # todo:
 # 1. Read the three lists as list1, list2, and list3 and print them.
