@@ -1,8 +1,8 @@
 # Program: Assignment 2
-# Authors: Group #
+# Authors: Group TODO: num
+#   - Bri Dulik
 #   - Lavender Wilson
 #   - Nik Roebuck
-#   - Bri Dulik
 
 # notes:
 #   - use list comprehensions
