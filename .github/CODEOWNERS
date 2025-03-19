@@ -1,0 +1,7 @@
+# assign lavender-aa to be the codeowner of the repo.
+* @lavender-aa
+
+
+# code owners:
+#   - will be automatically requested for PR reviews
+#   - can be allowed to bypass branch rules (main reason i'm setting this up)
