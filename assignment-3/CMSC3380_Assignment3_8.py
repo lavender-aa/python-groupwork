@@ -39,7 +39,7 @@ def main():
             case 7: add_student_course()
             case 8: del_student_course()
             case 9: list_student_courses()
-            case default: print("Invalid choice.\n")
+            case _: print("Invalid choice.\n")
                 
 def print_menu():
     print("\nOptions:\n--------")
