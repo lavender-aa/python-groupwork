@@ -16,6 +16,8 @@ students = {}
 
 # main loop (menu)
 def main():
+
+    get_data_from_files()
     while True:
         print_menu()
         try: choice = input("\nSelect an option: ")
@@ -29,6 +31,7 @@ def main():
         match(choice):
             case 0:
                 print("Quitting program.")
+                store_data()
                 return
             case 1: add_course()
             case 2: delete_course()
@@ -40,6 +43,16 @@ def main():
             case 8: del_student_course()
             case 9: list_student_courses()
             case _: print("Invalid choice.\n")
+
+# read data from file (if it exists)
+# file: CMSC3380_Assignment3_8.dat
+def get_data_from_files():
+    pass
+
+# save the data to a binary file
+# file: CMSC3380_Assignment3_8.dat
+def store_data():
+    pass
                 
 def print_menu():
     print("\nOptions:\n--------")
