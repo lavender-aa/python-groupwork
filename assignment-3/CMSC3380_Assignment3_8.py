@@ -68,30 +68,80 @@ def print_menu():
     print("\t[9] List a student's courses")
     
 def add_course():
-    pass
+    code = input("Enter course code: ")
+    name = input("Enter course name: ")
+    courses[code] = name
 
 def delete_course():
-    pass
+    code = input("Enter the code of the course to delete: ")
+    
+    if code in courses.keys():
+        del courses[code]
+        print("Removed course.")
+    else:
+        print("Course " + code + " does not exist.")
 
 def list_courses():
-    pass
+    for code, name in courses.items():
+        print(code, name)
 
+# student dict: name, major, email, course codes
+# main dict: IDs, students
 def add_student():
-    pass
+    id = input("Enter the student's ID: ")
+    while id in students.keys():
+        print("A student with this ID already exists.")
+    name = input("Enter the student's name: ")
+    major = input("Enter the student's major: ")
+    email = input("Enter the student's email: ")
+    student = {"name":name, "major":major, "email":email, "courses":[]}
+    students[id] = student
+    
 
 def delete_student():
-    pass
+    id = input("Enter ID of student to remove: ")
+    if id in students.keys():
+        del students[id]
+        print("Removed student.")
+    else:
+        print("No student has that ID.")
 
 def list_students():
-    pass
+    for id, student in students.items():
+        print("ID: " + id)
+        print("Name: " + student["name"])
+        print("Major: " + student["major"])
+        print("Email: " + student["email"])
+        print()
 
 def add_student_course():
-    pass
+    id = input("ID of student to add course to: ")
+    if id in students.keys():
+        code = input("Enter course code to add: ")
+        if code in courses.keys():
+            students[id]["courses"].append(code)
+        else:
+            print("Course does not exist.")
+    else:
+        print("No student has that ID.")
 
 def del_student_course():
-    pass
+    id = input("ID of student to remove course from: ")
+    if id in students.keys():
+        code = input("Enter code of course to remove: ")
+        if code in courses.keys():
+            students[id]["courses"].remove(code)
+        else:
+            print("Course does not exist.")
+    else:
+        print("No student has that ID.")
 
 def list_student_courses():
-    pass
+    id = input("Enter ID of student to show courses: ")
+    if id in students.keys():
+        for code in students[id]["courses"]:
+            print(code, courses[code])
+    else:
+        print("No student has that ID.")
 
 main()
