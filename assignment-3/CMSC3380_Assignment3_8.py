@@ -4,11 +4,7 @@
 #       - Lavender Wilson
 #       - Nik Roebuck
 
-
-# notes:
-# 
-# - courses: dictionary (key=code, val=title)
-# - students: dictionary of dictionaries (use IDs as key for parent)
+import pickle
 
 # global variables (dicts)
 courses = {}
@@ -47,12 +43,20 @@ def main():
 # read data from file (if it exists)
 # file: CMSC3380_Assignment3_8.dat
 def get_data_from_files():
-    pass
+    global courses, students
+    try:
+        with open("CMSC3380_Assignment3_8.dat", "rb") as f:
+            courses = pickle.load(f)
+            students = pickle.load(f)
+    except OSError:
+        print("No existing data to import.")
 
 # save the data to a binary file
 # file: CMSC3380_Assignment3_8.dat
 def store_data():
-    pass
+    with open("CMSC3380_Assignment3_8.dat", "wb") as f:
+        pickle.dump(courses, f)
+        pickle.dump(students, f)
                 
 def print_menu():
     print("\nOptions:\n--------")
