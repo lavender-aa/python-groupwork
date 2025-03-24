@@ -1,0 +1,14 @@
+# ignore everything
+*
+
+# except:
+# -------
+
+# the gitignore
+!.gitignore
+
+# the readme
+!README.md
+
+# python source files
+!**/*.py
