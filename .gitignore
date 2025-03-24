@@ -4,6 +4,9 @@
 # except:
 # -------
 
+# search one folder deep
+!*/
+
 # the gitignore
 !.gitignore
 
