@@ -95,6 +95,7 @@ def add_student():
     id = input("Enter the student's ID: ")
     while id in students.keys():
         print("A student with this ID already exists.")
+        id = input("Enter an unused ID: ")
     name = input("Enter the student's name: ")
     major = input("Enter the student's major: ")
     email = input("Enter the student's email: ")
