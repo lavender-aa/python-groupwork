@@ -12,7 +12,7 @@ As input, the player can enter at most a 2 digit number (excluding a negative si
 At the beginning of each round, the player is given a random 1- or 2-digit number to work with. The result of each calculation is the first operand in the next. An example to illustrate:
 - The player is given the value 9
 - To calculate 18, the player hits "*2="
-- To calculate 20, the player hits "+1="
+- To calculate 20, the player hits "+2="
 
 ## Scoring
 This game will be an endless-runner style game. Each time a game starts, the player starts with 100 score. If the score reaches 0, the game ends and the high score is the number of rounds survived. As rounds continue, the punishments get bigger and the rewards smaller.
