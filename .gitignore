@@ -1,0 +1,17 @@
+# ignore everything
+*
+
+# except:
+# -------
+
+# search one folder deep
+!*/
+
+# the gitignore
+!.gitignore
+
+# the readme
+!README.md
+
+# python source files
+!**/*.py
