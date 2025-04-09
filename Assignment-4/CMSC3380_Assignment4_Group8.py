@@ -247,7 +247,7 @@ def list_books():
     tree.configure(yscroll=scrollbar.set)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
     
-    connect = sqlite3.connectect(DB_FILE)
+    connect = sqlite3.connect(DB_FILE)
     c = connect.cursor()
     c.execute("SELECT * FROM books")
     rows = c.fetchall()
