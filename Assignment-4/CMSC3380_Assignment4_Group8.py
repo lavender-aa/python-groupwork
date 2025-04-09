@@ -190,8 +190,8 @@ def update_book():
       tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row = 3, column = col, padx = 5, pady = 5)
       col += 1
 
-    update_button = tk.Button(window, text = "Update Book", command=submit_update, state="disabled")
-    update_button.grid(row=4, column=0, columnspan=3, pady=10)
+    update_button = tk.Button(window, text = "Update Book", command = submit_update, state = "disabled")
+    update_button.grid(row = 4, column = 0, columnspan = 3, pady = 10)
 
 def delete_book():
     """Open a window to delete a book."""
@@ -216,35 +216,33 @@ def delete_book():
 
     window = tk.Toplevel(root)
     window.title("Delete Book")
-    tk.Label(window, text="Enter Book ID to delete:")\
-        .grid(row=0, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Enter Book ID to delete:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_id = tk.Entry(window)
-    entry_id.grid(row=0, column=1, padx=10, pady=5)
-    tk.Button(window, text="Delete", command=submit_delete)\
-        .grid(row=1, column=0, columnspan=2, pady=10)
+    entry_id.grid(row = 0, column = 1, padx = 10, pady = 5)
+    tk.Button(window, text = "Delete", command = submit_delete).grid(row = 1, column = 0, columnspan = 2, pady = 10)
 
 def list_books():
     """Open a window to list all defined books using a Treeview widget."""
     window = tk.Toplevel(root)
     window.title("List of Books")
     
-    tree = ttk.Treeview(window, columns=("ID", "Title", "Authors", "Category"), show="headings")
-    tree.heading("ID", text="ID")
-    tree.heading("Title", text="Title")
-    tree.heading("Authors", text="Authors")
-    tree.heading("Category", text="Category")
+    tree = ttk.Treeview(window, columns = ("ID", "Title", "Authors", "Category"), show = "headings")
+    tree.heading("ID", text = "ID")
+    tree.heading("Title", text = "Title")
+    tree.heading("Authors", text = "Authors")
+    tree.heading("Category", text = "Category")
     
-    tree.column("ID", width=50)
-    tree.column("Title", width=200)
-    tree.column("Authors", width=150)
-    tree.column("Category", width=100)
+    tree.column("ID", width = 50)
+    tree.column("Title", width = 200)
+    tree.column("Authors", width = 150)
+    tree.column("Category", width = 100)
     
-    tree.pack(fill=tk.BOTH, expand=True)
+    tree.pack(fill = tk.BOTH, expand=True)
     
     # Adding a scrollbar for convenience.
-    scrollbar = ttk.Scrollbar(window, orient="vertical", command=tree.yview)
-    tree.configure(yscroll=scrollbar.set)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    scrollbar = ttk.Scrollbar(window, orient = "vertical", command=tree.yview)
+    tree.configure(yscroll  = scrollbar.set)
+    scrollbar.pack(side = tk.RIGHT, fill = tk.Y)
     
     connect = sqlite3.connect(DB_FILE)
     c = connect.cursor()
@@ -263,9 +261,9 @@ init_db()
 insert_sample_books()
 
 # Create the main menu buttons.
-tk.Button(root, text="Add Book", width=20, command=add_book).pack(pady=5)
-tk.Button(root, text="Update Book", width=20, command=update_book).pack(pady=5)
-tk.Button(root, text="Delete Book", width=20, command=delete_book).pack(pady=5)
-tk.Button(root, text="List Books", width=20, command=list_books).pack(pady=5)
+tk.Button(root, text = "Add Book", width = 20, command = add_book).pack(pady = 5)
+tk.Button(root, text = "Update Book", width = 20, command = update_book).pack(pady = 5)
+tk.Button(root, text = "Delete Book", width = 20, command = delete_book).pack(pady = 5)
+tk.Button(root, text = "List Books", width = 20, command = list_books).pack(pady = 5)
 
 root.mainloop()
