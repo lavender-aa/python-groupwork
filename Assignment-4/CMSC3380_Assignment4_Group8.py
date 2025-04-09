@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 
-# nitpicks:
+# to fix:
 # ---------
 #   - message boxes always show on main window instead of current
 #   - scrollbar not in correct position (in lists window)
