@@ -77,34 +77,35 @@ def add_book():
     window.title("Add Book")
     
     # Book ID
-    tk.Label(window, text="Book ID:").grid(row=0, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Book ID:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_id = tk.Entry(window)
-    entry_id.grid(row=0, column=1, padx=10, pady=5)
+    entry_id.grid(row = 0, column = 1, padx = 10, pady = 5)
     
     # Title
-    tk.Label(window, text="Title:").grid(row=1, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Title:").grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_title = tk.Entry(window)
-    entry_title.grid(row=1, column=1, padx=10, pady=5)
+    entry_title.grid(row = 1, column = 1, padx = 10, pady = 5)
     
     # Authors
-    tk.Label(window, text="Authors:").grid(row=2, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text="Authors:").grid(row = 2, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_authors = tk.Entry(window)
-    entry_authors.grid(row=2, column=1, padx=10, pady=5)
+    entry_authors.grid(row = 2, column = 1, padx = 10, pady = 5)
+    
     
     # Category selection using radio buttons.
-    tk.Label(window, text="Category:").grid(row=3, column=0, padx=10, pady=5, sticky="e")
-    category_var = tk.StringVar(value="Computer Science")
+    tk.Label(window, text = "Category:").grid(row = 3, column = 0, padx = 10, pady = 5, sticky = "e")
+    category_var = tk.StringVar(value = "Computer Science")
     categories = [("Computer Science", "Computer Science"),
                   ("Science Fiction", "Science Fiction"),
                   ("Mystery", "Mystery"),
                   ("Other", "Other")]
     col = 1
     for text, value in categories:
-        tk.Radiobutton(window, text=text, variable=category_var, value=value)\
-            .grid(row=3, column=col, padx=5, pady=5)
-        col += 1
+      tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row=3, column = col, padx = 5, pady = 5)
+      col += 1
 
-    tk.Button(window, text="Submit", command=submit).grid(row=4, column=0, columnspan=2, pady=10)
+    tk.Button(window, text = "Submit", command = submit).grid(row = 4, column = 0, columnspan = 2, pady = 10)
+    # tk.button(window, text = "Back", command = )
 
 def update_book():
     """Open a window to update a book's details."""
@@ -159,39 +160,37 @@ def update_book():
 
     # Search by Book ID to update.
     tk.Label(window, text="Enter Book ID to update:")\
-        .grid(row=0, column=0, padx=10, pady=5, sticky="e")
+        .grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_search = tk.Entry(window)
-    entry_search.grid(row=0, column=1, padx=10, pady=5)
-    tk.Button(window, text="Load Book", command=load_book)\
-        .grid(row=0, column=2, padx=10, pady=5)
+    entry_search.grid(row = 0, column = 1, padx = 10, pady = 5)
+    tk.Button(window, text = "Load Book", command=load_book).grid(row = 0, column = 2, padx = 10, pady = 5)
 
     # Title field.
-    tk.Label(window, text="Title:")\
-        .grid(row=1, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Title:")\
+        .grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_title = tk.Entry(window)
-    entry_title.grid(row=1, column=1, columnspan=2, padx=10, pady=5)
+    entry_title.grid(row = 1, column = 1, columnspan = 2, padx = 10, pady = 5)
     
     # Authors field.
-    tk.Label(window, text="Authors:")\
-        .grid(row=2, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Authors:")\
+        .grid(row = 2, column = 0, padx = 10, pady = 5 , sticky = "e")
     entry_authors = tk.Entry(window)
-    entry_authors.grid(row=2, column=1, columnspan=2, padx=10, pady=5)
+    entry_authors.grid(row = 2, column = 1, columnspan = 2, padx = 10, pady = 5)
     
     # Category field.
-    tk.Label(window, text="Category:")\
-        .grid(row=3, column=0, padx=10, pady=5, sticky="e")
-    category_var = tk.StringVar(value="Computer Science")
+    tk.Label(window, text = "Category:")\
+        .grid(row = 3, column = 0, padx = 10, pady = 5, sticky = "e")
+    category_var = tk.StringVar(value = "Computer Science")
     categories = [("Computer Science", "Computer Science"),
                   ("Science Fiction", "Science Fiction"),
                   ("Mystery", "Mystery"),
                   ("Other", "Other")]
     col = 1
     for text, value in categories:
-        tk.Radiobutton(window, text=text, variable=category_var, value=value)\
-            .grid(row=3, column=col, padx=5, pady=5)
-        col += 1
+      tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row = 3, column = col, padx = 5, pady = 5)
+      col += 1
 
-    update_button = tk.Button(window, text="Update Book", command=submit_update, state="disabled")
+    update_button = tk.Button(window, text = "Update Book", command=submit_update, state="disabled")
     update_button.grid(row=4, column=0, columnspan=3, pady=10)
 
 def delete_book():
