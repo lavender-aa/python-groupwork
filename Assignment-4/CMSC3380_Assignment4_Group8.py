@@ -85,34 +85,35 @@ def add_book():
     window.title("Add Book")
     
     # Book ID
-    tk.Label(window, text="Book ID:").grid(row=0, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Book ID:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_id = tk.Entry(window)
-    entry_id.grid(row=0, column=1, padx=10, pady=5)
+    entry_id.grid(row = 0, column = 1, padx = 10, pady = 5)
     
     # Title
-    tk.Label(window, text="Title:").grid(row=1, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Title:").grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_title = tk.Entry(window)
-    entry_title.grid(row=1, column=1, padx=10, pady=5)
+    entry_title.grid(row = 1, column = 1, padx = 10, pady = 5)
     
     # Authors
-    tk.Label(window, text="Authors:").grid(row=2, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text="Authors:").grid(row = 2, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_authors = tk.Entry(window)
-    entry_authors.grid(row=2, column=1, padx=10, pady=5)
+    entry_authors.grid(row = 2, column = 1, padx = 10, pady = 5)
+    
     
     # Category selection using radio buttons.
-    tk.Label(window, text="Category:").grid(row=3, column=0, padx=10, pady=5, sticky="e")
-    category_var = tk.StringVar(value="Computer Science")
+    tk.Label(window, text = "Category:").grid(row = 3, column = 0, padx = 10, pady = 5, sticky = "e")
+    category_var = tk.StringVar(value = "Computer Science")
     categories = [("Computer Science", "Computer Science"),
                   ("Science Fiction", "Science Fiction"),
                   ("Mystery", "Mystery"),
                   ("Other", "Other")]
     col = 1
     for text, value in categories:
-        tk.Radiobutton(window, text=text, variable=category_var, value=value)\
-            .grid(row=3, column=col, padx=5, pady=5)
-        col += 1
+      tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row=3, column = col, padx = 5, pady = 5)
+      col += 1
 
-    tk.Button(window, text="Submit", command=submit).grid(row=4, column=0, columnspan=2, pady=10)
+    tk.Button(window, text = "Submit", command = submit).grid(row = 4, column = 0, columnspan = 2, pady = 10)
+    # tk.button(window, text = "Back", command = )
 
 def update_book():
     """Open a window to update a book's details."""
@@ -122,11 +123,11 @@ def update_book():
         except ValueError:
             messagebox.showerror("Invalid Input", "Book ID must be a number.")
             return
-        conn = sqlite3.connect(DB_FILE)
-        c = conn.cursor()
+        connect = sqlite3.connect(DB_FILE)
+        c = connect.cursor()
         c.execute("SELECT * FROM books WHERE id=?", (bid,))
         row = c.fetchone()
-        conn.close()
+        connect.close()
         if row is None:
             messagebox.showerror("Not Found", "No book found with the provided ID.")
         else:
@@ -150,56 +151,54 @@ def update_book():
         if not title or not authors:
             messagebox.showerror("Missing Information", "Please fill in all fields.")
             return
-        conn = sqlite3.connect(DB_FILE)
-        c = conn.cursor()
+        connect = sqlite3.connect(DB_FILE)
+        c = connect.cursor()
         c.execute("UPDATE books SET title=?, authors=?, category=? WHERE id=?",
                   (title, authors, category, bid))
         if c.rowcount == 0:
             messagebox.showerror("Error", "No book was updated.")
         else:
-            conn.commit()
+            connect.commit()
             messagebox.showinfo("Success", "Book updated successfully!")
             window.destroy()
-        conn.close()
+        connect.close()
         
     window = tk.Toplevel(root)
     window.title("Update Book")
 
     # Search by Book ID to update.
     tk.Label(window, text="Enter Book ID to update:")\
-        .grid(row=0, column=0, padx=10, pady=5, sticky="e")
+        .grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_search = tk.Entry(window)
-    entry_search.grid(row=0, column=1, padx=10, pady=5)
-    tk.Button(window, text="Load Book", command=load_book)\
-        .grid(row=0, column=2, padx=10, pady=5)
+    entry_search.grid(row = 0, column = 1, padx = 10, pady = 5)
+    tk.Button(window, text = "Load Book", command=load_book).grid(row = 0, column = 2, padx = 10, pady = 5)
 
     # Title field.
-    tk.Label(window, text="Title:")\
-        .grid(row=1, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Title:")\
+        .grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_title = tk.Entry(window)
-    entry_title.grid(row=1, column=1, columnspan=2, padx=10, pady=5)
+    entry_title.grid(row = 1, column = 1, columnspan = 2, padx = 10, pady = 5)
     
     # Authors field.
-    tk.Label(window, text="Authors:")\
-        .grid(row=2, column=0, padx=10, pady=5, sticky="e")
+    tk.Label(window, text = "Authors:")\
+        .grid(row = 2, column = 0, padx = 10, pady = 5 , sticky = "e")
     entry_authors = tk.Entry(window)
-    entry_authors.grid(row=2, column=1, columnspan=2, padx=10, pady=5)
+    entry_authors.grid(row = 2, column = 1, columnspan = 2, padx = 10, pady = 5)
     
     # Category field.
-    tk.Label(window, text="Category:")\
-        .grid(row=3, column=0, padx=10, pady=5, sticky="e")
-    category_var = tk.StringVar(value="Computer Science")
+    tk.Label(window, text = "Category:")\
+        .grid(row = 3, column = 0, padx = 10, pady = 5, sticky = "e")
+    category_var = tk.StringVar(value = "Computer Science")
     categories = [("Computer Science", "Computer Science"),
                   ("Science Fiction", "Science Fiction"),
                   ("Mystery", "Mystery"),
                   ("Other", "Other")]
     col = 1
     for text, value in categories:
-        tk.Radiobutton(window, text=text, variable=category_var, value=value)\
-            .grid(row=3, column=col, padx=5, pady=5)
-        col += 1
+      tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row = 3, column = col, padx = 5, pady = 5)
+      col += 1
 
-    update_button = tk.Button(window, text="Update Book", command=submit_update, state="disabled")
+    update_button = tk.Button(window, text = "Update Book", command=submit_update, state="disabled")
     update_button.grid(row=4, column=0, columnspan=3, pady=10)
 
 def delete_book():
@@ -212,16 +211,16 @@ def delete_book():
             return
         confirm = messagebox.askyesno("Confirm Delete", "Are you sure you want to delete this book?")
         if confirm:
-            conn = sqlite3.connect(DB_FILE)
-            c = conn.cursor()
+            connect = sqlite3.connect(DB_FILE)
+            c = connect.cursor()
             c.execute("DELETE FROM books WHERE id=?", (bid,))
             if c.rowcount == 0:
                 messagebox.showerror("Error", "No book found with that ID.")
             else:
-                conn.commit()
+                connect.commit()
                 messagebox.showinfo("Success", "Book deleted successfully!")
                 window.destroy()
-            conn.close()
+            connect.close()
 
     window = tk.Toplevel(root)
     window.title("Delete Book")
@@ -255,13 +254,13 @@ def list_books():
     tree.configure(yscroll=scrollbar.set)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
     
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
+    connect = sqlite3.connect(DB_FILE)
+    c = connect.cursor()
     c.execute("SELECT * FROM books")
     rows = c.fetchall()
     for row in rows:
         tree.insert("", tk.END, values=row)
-    conn.close()
+    connect.close()
 
 # Main window for the application.
 root = tk.Tk()
