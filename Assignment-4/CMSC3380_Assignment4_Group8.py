@@ -2,6 +2,14 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 
+# nitpicks:
+# ---------
+#   - message boxes always show on main window instead of current
+#   - scrollbar not in correct position (in lists window)
+#   - no quit button on main menu
+#   - no cancel buttons on subsequent windows
+#   - buttons cannot be pressed via enter key when selected
+
 # Name of the SQLite database file.
 DB_FILE = "books.db"
 
@@ -69,7 +77,7 @@ def add_book():
             messagebox.showinfo("Success", "Book added successfully!")
             window.destroy()
         except sqlite3.IntegrityError:
-            messagebox.showerror("Error", "A book with that ID already exists.")
+            messagebox.showerror("Error", "A book with that ID already exists.") # nitpick: all messages appear on root window instead of current
         finally:
             connect.close()
 
