@@ -2,10 +2,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 
-# to fix:
-# ---------
-#   - buttons cannot be pressed via enter key when selected
-
 # Name of the SQLite database file.
 DB_FILE = "books.db"
 
