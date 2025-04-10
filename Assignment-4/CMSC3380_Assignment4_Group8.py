@@ -67,7 +67,7 @@ def add_book(event=0):
                       (book_id, title, authors, category))
             connect.commit()
             messagebox.showinfo("Success", "Book added successfully!", parent=window)
-            window.destroy()
+            cancel()
         except sqlite3.IntegrityError:
             messagebox.showerror("Error", "A book with that ID already exists.", parent=window)
         finally:
@@ -165,7 +165,7 @@ def update_book(event=0):
         else:
             connect.commit()
             messagebox.showinfo("Success", "Book updated successfully!", parent=window)
-            window.destroy()
+            cancel()
         connect.close()
         
     # used for pulling the root window back up when a toplevel is closed by hitting the x
@@ -239,7 +239,7 @@ def delete_book(event=0):
             else:
                 connect.commit()
                 messagebox.showinfo("Success", "Book deleted successfully!", parent=window)
-                window.destroy()
+                cancel()
             connect.close()
 
     # used for pulling the root window back up when a toplevel is closed by hitting the x
@@ -255,7 +255,8 @@ def delete_book(event=0):
     window.protocol("WM_DELETE_WINDOW", cancel)
     
     tk.Label(window, text="Enter Book ID to delete:").grid(row=0, column=0, padx=10, pady=5, sticky="e")
-    entry_id = tk.Entry(window).grid(row=0, column=1, padx=10, pady=5)
+    entry_id = tk.Entry(window)
+    entry_id.grid(row=0, column=1, padx=10, pady=5)
     dele = tk.Button(window, text="Delete", command=submit_delete)
     dele.grid(row=1, column=0, columnspan=2, pady=10)
     dele.bind("<Return>", submit_delete)
