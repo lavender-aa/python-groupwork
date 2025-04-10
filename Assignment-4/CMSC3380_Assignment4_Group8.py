@@ -89,6 +89,7 @@ def add_book(event=0):
     tk.Label(window, text = "Book ID:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_id = tk.Entry(window)
     entry_id.grid(row = 0, column = 1, padx = 10, pady = 5)
+    entry_id.focus_force()
     
     # Title
     tk.Label(window, text = "Title:").grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
@@ -181,23 +182,21 @@ def update_book(event=0):
     window.protocol("WM_DELETE_WINDOW", cancel)
 
     # Search by Book ID to update.
-    tk.Label(window, text="Enter Book ID to update:")\
-        .grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
+    tk.Label(window, text="Enter Book ID to update:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_search = tk.Entry(window)
     entry_search.grid(row = 0, column = 1, padx = 10, pady = 5)
+    entry_search.focus_force()
     load = tk.Button(window, text = "Load Book", command=load_book)
     load.grid(row = 0, column = 2, padx = 10, pady = 5)
     load.bind("<Return>", load_book)
 
     # Title field.
-    tk.Label(window, text = "Title:")\
-        .grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
+    tk.Label(window, text = "Title:").grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_title = tk.Entry(window)
     entry_title.grid(row = 1, column = 1, columnspan = 2, padx = 10, pady = 5)
     
     # Authors field.
-    tk.Label(window, text = "Authors:")\
-        .grid(row = 2, column = 0, padx = 10, pady = 5 , sticky = "e")
+    tk.Label(window, text = "Authors:").grid(row = 2, column = 0, padx = 10, pady = 5 , sticky = "e")
     entry_authors = tk.Entry(window)
     entry_authors.grid(row = 2, column = 1, columnspan = 2, padx = 10, pady = 5)
     
@@ -257,6 +256,7 @@ def delete_book(event=0):
     tk.Label(window, text="Enter Book ID to delete:").grid(row=0, column=0, padx=10, pady=5, sticky="e")
     entry_id = tk.Entry(window)
     entry_id.grid(row=0, column=1, padx=10, pady=5)
+    entry_id.focus_force()
     dele = tk.Button(window, text="Delete", command=submit_delete)
     dele.grid(row=1, column=0, columnspan=2, pady=10)
     dele.bind("<Return>", submit_delete)
@@ -300,6 +300,7 @@ def list_books(event=0):
     canc = tk.Button(window, text = "Cancel", command = cancel)
     canc.pack(side='right', padx=10, pady=10)
     canc.bind("<Return>", cancel)
+    canc.focus_force()
     
     connect = sqlite3.connect(DB_FILE)
     c = connect.cursor()
