@@ -73,7 +73,7 @@ def add_book(event = 0):
         finally:
             connect.close()
     
-    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    # Used for pulling the root window back up when a toplevel is closed by hitting the x.
     def cancel(event = 0):
         root.deiconify()
         window.destroy()
@@ -81,22 +81,22 @@ def add_book(event = 0):
     window = tk.Toplevel(root)
     window.title("Add Book")
     
-    # hide root, make active again on cancel/window close
+    # Hide root, make active again on cancel/window close.
     root.withdraw()
     window.protocol("WM_DELETE_WINDOW", cancel)
     
-    # Book ID
+    # Book ID.
     tk.Label(window, text = "Book ID:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_id = tk.Entry(window)
     entry_id.grid(row = 0, column = 1, padx = 10, pady = 5)
     entry_id.focus_force()
     
-    # Title
+    # Title.
     tk.Label(window, text = "Title:").grid(row = 1, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_title = tk.Entry(window)
     entry_title.grid(row = 1, column = 1, padx = 10, pady = 5)
     
-    # Authors
+    # Authors.
     tk.Label(window, text = "Authors:").grid(row = 2, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_authors = tk.Entry(window)
     entry_authors.grid(row = 2, column = 1, padx = 10, pady = 5)
@@ -169,7 +169,7 @@ def update_book(event = 0):
             cancel()
         connect.close()
         
-    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    # Used for pulling the root window back up when a toplevel is closed by hitting the x.
     def cancel(event = 0):
         root.deiconify()
         window.destroy()
@@ -177,7 +177,7 @@ def update_book(event = 0):
     window = tk.Toplevel(root)
     window.title("Update Book")
     
-    # hide root, make active again on cancel/window close
+    # Hide root, make active again on cancel/window close.
     root.withdraw()
     window.protocol("WM_DELETE_WINDOW", cancel)
 
@@ -213,9 +213,12 @@ def update_book(event = 0):
       tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row = 3, column = col, padx = 5, pady = 5)
       col += 1
 
+    # Update button.
     update_button = tk.Button(window, text = "Update Book", command = submit_update, state = "disabled")
     update_button.grid(row = 4, column = 0, columnspan = 3, pady = 10)
     update_button.bind("<Return>", submit_update)
+    
+    # Cancel button.
     canc = tk.Button(window, text = "Cancel", command = cancel)
     canc.grid(row = 4, column = 1, columnspan = 3, pady = 10)
     canc.bind("<Return>", cancel)
@@ -241,25 +244,31 @@ def delete_book(event = 0):
                 cancel()
             connect.close()
 
-    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    # Used for pulling the root window back up when a toplevel is closed by hitting the x.
     def cancel(event = 0):
         root.deiconify()
         window.destroy()
 
+    # Create new window.
     window = tk.Toplevel(root)
     window.title("Delete Book")
     
-    # hide root, make active again on cancel/window close
+    # Hide root, make active again on cancel/window close.
     root.withdraw()
     window.protocol("WM_DELETE_WINDOW", cancel)
     
+    # Book id entry.
     tk.Label(window, text = "Enter Book ID to delete:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_id = tk.Entry(window)
     entry_id.grid(row = 0, column = 1, padx = 10, pady = 5)
     entry_id.focus_force()
+    
+    # Delete button.
     dele = tk.Button(window, text = "Delete", command = submit_delete)
     dele.grid(row = 1, column = 0, columnspan = 2, pady = 10)
     dele.bind("<Return>", submit_delete)
+    
+    # Cancel button.
     canc = tk.Button(window, text = "Cancel", command = cancel)
     canc.grid(row = 1, column = 1, columnspan = 2, pady = 10)
     canc.bind("<Return>", cancel)
@@ -267,24 +276,25 @@ def delete_book(event = 0):
 def list_books(event = 0):
     """Open a window to list all defined books using a Treeview widget."""
     
-    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    # Used for pulling the root window back up when a toplevel is closed by hitting the x.
     def cancel(event = 0):
         root.deiconify()
         window.destroy()
 
+    # Create new window.
     window = tk.Toplevel(root)
     window.title("List of Books")
     
-    # hide root, make active again on cancel/window close
+    # Hide root, make active again on cancel/window close.
     root.withdraw()
     window.protocol("WM_DELETE_WINDOW", cancel)
     
+    # Tree view.
     tree = ttk.Treeview(window, columns = ("ID", "Title", "Authors", "Category"), show = "headings")
     tree.heading("ID", text = "ID")
     tree.heading("Title", text = "Title")
     tree.heading("Authors", text = "Authors")
     tree.heading("Category", text = "Category")
-    
     tree.column("ID", width = 50)
     tree.column("Title", width = 200)
     tree.column("Authors", width = 150)
@@ -296,12 +306,13 @@ def list_books(event = 0):
     scrollbar.pack(side = 'right', fill = 'y')
     tree.pack(fill = tk.BOTH, expand = True)
     
-    # Cancel button
+    # Cancel button.
     canc = tk.Button(window, text = "Cancel", command = cancel)
     canc.pack(side = 'right', padx = 10, pady = 10)
     canc.bind("<Return>", cancel)
     canc.focus_force()
-    
+
+    # Connect to DB and put all data into the treeview.
     connect = sqlite3.connect(DB_FILE)
     c = connect.cursor()
     c.execute("SELECT * FROM books")
@@ -310,7 +321,8 @@ def list_books(event = 0):
         tree.insert("", tk.END, values = row)
     connect.close()
 
-# handler for quit button
+# Handler for quit button.
+# (Necessary to work with enter keybinding.).
 def quit_program(event = 0):
     root.destroy()
 
@@ -322,20 +334,29 @@ root.title("Book Manager")
 init_db()
 insert_sample_books()
 
-# Create the main menu buttons.
-# (named for bindings)
+# Main menu buttons.
+
+# Add new book.
 add = tk.Button(root, text = "Add Book", width = 20, command = add_book)
 add.pack(pady = 5)
 add.bind("<Return>", add_book)
+
+# Update a book.
 update = tk.Button(root, text = "Update Book", width = 20, command = update_book)
 update.pack(pady = 5)
 update.bind("<Return>", update_book)
+
+# Delete a book.
 delete = tk.Button(root, text = "Delete Book", width = 20, command = delete_book)
 delete.pack(pady = 5)
 delete.bind("<Return>", delete_book)
+
+# List all books.
 list = tk.Button(root, text = "List Books", width = 20, command = list_books)
 list.pack(pady = 5)
 list.bind("<Return>", list_books)
+
+# Quit the program.
 quit = tk.Button(root, text = "Quit", width = 20, command = quit_program)
 quit.pack(pady = 5)
 quit.bind("<Return>", quit_program)
