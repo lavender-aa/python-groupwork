@@ -50,9 +50,9 @@ def insert_sample_books():
         connect.commit()
     connect.close()
 
-def add_book():
+def add_book(event=0):
     """Open a window to add a new book."""
-    def submit():
+    def submit(event=0):
         try:
             book_id = int(entry_id.get())
         except ValueError:
@@ -78,7 +78,7 @@ def add_book():
             connect.close()
     
     # used for pulling the root window back up when a toplevel is closed by hitting the x
-    def cancel():
+    def cancel(event=0):
         root.deiconify()
         window.destroy()
 
@@ -117,12 +117,16 @@ def add_book():
       tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row=3, column = col, padx = 5, pady = 5)
       col += 1
 
-    tk.Button(window, text = "Submit", command = submit).grid(row = 4, column = 0, columnspan = 2, pady = 10)
-    tk.Button(window, text = "Cancel", command = cancel).grid(row = 4, column = 1, columnspan = 2, pady = 10)
+    sub = tk.Button(window, text = "Submit", command = submit)
+    sub.bind("<Return>", submit)
+    sub.grid(row = 4, column = 0, columnspan = 2, pady = 10)
+    canc = tk.Button(window, text = "Cancel", command = cancel)
+    canc.bind("<Return>", cancel)
+    canc.grid(row = 4, column = 1, columnspan = 2, pady = 10)
 
-def update_book():
+def update_book(event=0):
     """Open a window to update a book's details."""
-    def load_book():
+    def load_book(event=0):
         try:
             bid = int(entry_search.get())
         except ValueError:
@@ -144,7 +148,7 @@ def update_book():
             category_var.set(row[3])
             update_button.config(state="normal")
 
-    def submit_update():
+    def submit_update(event=0):
         try:
             bid = int(entry_search.get())
         except ValueError:
@@ -169,7 +173,7 @@ def update_book():
         connect.close()
         
     # used for pulling the root window back up when a toplevel is closed by hitting the x
-    def cancel():
+    def cancel(event=0):
         root.deiconify()
         window.destroy()
 
@@ -185,7 +189,9 @@ def update_book():
         .grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
     entry_search = tk.Entry(window)
     entry_search.grid(row = 0, column = 1, padx = 10, pady = 5)
-    tk.Button(window, text = "Load Book", command=load_book).grid(row = 0, column = 2, padx = 10, pady = 5)
+    load = tk.Button(window, text = "Load Book", command=load_book)
+    load.grid(row = 0, column = 2, padx = 10, pady = 5)
+    load.bind("<Return>", load_book)
 
     # Title field.
     tk.Label(window, text = "Title:")\
@@ -212,13 +218,16 @@ def update_book():
       tk.Radiobutton(window, text = text, variable = category_var, value = value).grid(row = 3, column = col, padx = 5, pady = 5)
       col += 1
 
-    update_button = tk.Button(window, text = "Update Book", command=submit_update, state="disabled")\
-                        .grid(row=4, column=0, columnspan=3, pady=10)
-    tk.Button(window, text = "Cancel", command = cancel).grid(row = 4, column = 1, columnspan = 3, pady = 10)
+    update_button = tk.Button(window, text = "Update Book", command=submit_update, state="disabled")
+    update_button.grid(row=4, column=0, columnspan=3, pady=10)
+    update_button.bind("<Return>", submit_update)
+    canc = tk.Button(window, text = "Cancel", command = cancel)
+    canc.grid(row = 4, column = 1, columnspan = 3, pady = 10)
+    canc.bind("<Return>", cancel)
 
-def delete_book():
+def delete_book(event=0):
     """Open a window to delete a book."""
-    def submit_delete():
+    def submit_delete(event=0):
         try:
             bid = int(entry_id.get())
         except ValueError:
@@ -238,7 +247,7 @@ def delete_book():
             connect.close()
 
     # used for pulling the root window back up when a toplevel is closed by hitting the x
-    def cancel():
+    def cancel(event=0):
         root.deiconify()
         window.destroy()
 
@@ -251,14 +260,18 @@ def delete_book():
     
     tk.Label(window, text="Enter Book ID to delete:").grid(row=0, column=0, padx=10, pady=5, sticky="e")
     entry_id = tk.Entry(window).grid(row=0, column=1, padx=10, pady=5)
-    tk.Button(window, text="Delete", command=submit_delete).grid(row=1, column=0, columnspan=2, pady=10)
-    tk.Button(window, text = "Cancel", command = cancel).grid(row = 1, column = 1, columnspan = 2, pady = 10)
+    dele = tk.Button(window, text="Delete", command=submit_delete)
+    dele.grid(row=1, column=0, columnspan=2, pady=10)
+    dele.bind("<Return>", submit_delete)
+    canc = tk.Button(window, text = "Cancel", command = cancel)
+    canc.grid(row = 1, column = 1, columnspan = 2, pady = 10)
+    canc.bind("<Return>", cancel)
 
-def list_books():
+def list_books(event=0):
     """Open a window to list all defined books using a Treeview widget."""
     
     # used for pulling the root window back up when a toplevel is closed by hitting the x
-    def cancel():
+    def cancel(event=0):
         root.deiconify()
         window.destroy()
 
@@ -285,7 +298,11 @@ def list_books():
     tree.configure(yscrollcommand=scrollbar.set)
     scrollbar.pack(side='right', fill='y')
     tree.pack(fill=tk.BOTH, expand=True)
-    tk.Button(window, text = "Cancel", command = cancel).pack(side='right', padx=10, pady=10)
+    
+    # Cancel button
+    canc = tk.Button(window, text = "Cancel", command = cancel)
+    canc.pack(side='right', padx=10, pady=10)
+    canc.bind("<Return>", cancel)
     
     connect = sqlite3.connect(DB_FILE)
     c = connect.cursor()
@@ -294,6 +311,10 @@ def list_books():
     for row in rows:
         tree.insert("", tk.END, values=row)
     connect.close()
+
+# handler for quit button
+def quit_program(event=0):
+    root.destroy()
 
 # Main window for the application.
 root = tk.Tk()
@@ -304,10 +325,21 @@ init_db()
 insert_sample_books()
 
 # Create the main menu buttons.
-tk.Button(root, text="Add Book", width=20, command=add_book).pack(pady=5)
-tk.Button(root, text="Update Book", width=20, command=update_book).pack(pady=5)
-tk.Button(root, text="Delete Book", width=20, command=delete_book).pack(pady=5)
-tk.Button(root, text="List Books", width=20, command=list_books).pack(pady=5)
-tk.Button(root, text="Quit", width=20, command=root.destroy).pack(pady=5)
+# (named for bindings)
+add = tk.Button(root, text="Add Book", width=20, command=add_book)
+add.pack(pady=5)
+add.bind("<Return>", add_book)
+update = tk.Button(root, text="Update Book", width=20, command=update_book)
+update.pack(pady=5)
+update.bind("<Return>", update_book)
+delete = tk.Button(root, text="Delete Book", width=20, command=delete_book)
+delete.pack(pady=5)
+delete.bind("<Return>", delete_book)
+list = tk.Button(root, text="List Books", width=20, command=list_books)
+list.pack(pady=5)
+list.bind("<Return>", list_books)
+quit = tk.Button(root, text="Quit", width=20, command=quit_program)
+quit.pack(pady=5)
+quit.bind("<Return>", quit_program)
 
 root.mainloop()
