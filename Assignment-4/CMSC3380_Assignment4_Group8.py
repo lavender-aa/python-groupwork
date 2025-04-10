@@ -60,13 +60,13 @@ def add_book():
         try:
             book_id = int(entry_id.get())
         except ValueError:
-            messagebox.showerror("Invalid Input", "Book ID must be a number.")
+            messagebox.showerror("Invalid Input", "Book ID must be a number.", parent=window)
             return
         title = entry_title.get().strip()
         authors = entry_authors.get().strip()
         category = category_var.get()
         if not title or not authors:
-            messagebox.showerror("Missing Information", "Please fill in all fields.")
+            messagebox.showerror("Missing Information", "Please fill in all fields.", parent=window)
             return
         connect = sqlite3.connect(DB_FILE)
         c = connect.cursor()
@@ -74,10 +74,10 @@ def add_book():
             c.execute("INSERT INTO books (id, title, authors, category) VALUES (?,?,?,?)", 
                       (book_id, title, authors, category))
             connect.commit()
-            messagebox.showinfo("Success", "Book added successfully!")
+            messagebox.showinfo("Success", "Book added successfully!", parent=window)
             window.destroy()
         except sqlite3.IntegrityError:
-            messagebox.showerror("Error", "A book with that ID already exists.") # nitpick: all messages appear on root window instead of current
+            messagebox.showerror("Error", "A book with that ID already exists.", parent=window)
         finally:
             connect.close()
 
@@ -121,7 +121,7 @@ def update_book():
         try:
             bid = int(entry_search.get())
         except ValueError:
-            messagebox.showerror("Invalid Input", "Book ID must be a number.")
+            messagebox.showerror("Invalid Input", "Book ID must be a number.", parent=window)
             return
         connect = sqlite3.connect(DB_FILE)
         c = connect.cursor()
@@ -129,7 +129,7 @@ def update_book():
         row = c.fetchone()
         connect.close()
         if row is None:
-            messagebox.showerror("Not Found", "No book found with the provided ID.")
+            messagebox.showerror("Not Found", "No book found with the provided ID.", parent=window)
         else:
             # Pre-fill the fields with the current details.
             entry_title.delete(0, tk.END)
@@ -143,23 +143,23 @@ def update_book():
         try:
             bid = int(entry_search.get())
         except ValueError:
-            messagebox.showerror("Invalid Input", "Book ID must be a number.")
+            messagebox.showerror("Invalid Input", "Book ID must be a number.", parent=window)
             return
         title = entry_title.get().strip()
         authors = entry_authors.get().strip()
         category = category_var.get()
         if not title or not authors:
-            messagebox.showerror("Missing Information", "Please fill in all fields.")
+            messagebox.showerror("Missing Information", "Please fill in all fields.", parent=window)
             return
         connect = sqlite3.connect(DB_FILE)
         c = connect.cursor()
         c.execute("UPDATE books SET title=?, authors=?, category=? WHERE id=?",
                   (title, authors, category, bid))
         if c.rowcount == 0:
-            messagebox.showerror("Error", "No book was updated.")
+            messagebox.showerror("Error", "No book was updated.", parent=window)
         else:
             connect.commit()
-            messagebox.showinfo("Success", "Book updated successfully!")
+            messagebox.showinfo("Success", "Book updated successfully!", parent=window)
             window.destroy()
         connect.close()
         
@@ -207,18 +207,18 @@ def delete_book():
         try:
             bid = int(entry_id.get())
         except ValueError:
-            messagebox.showerror("Invalid Input", "Book ID must be a number.")
+            messagebox.showerror("Invalid Input", "Book ID must be a number.", parent=window)
             return
-        confirm = messagebox.askyesno("Confirm Delete", "Are you sure you want to delete this book?")
+        confirm = messagebox.askyesno("Confirm Delete", "Are you sure you want to delete this book?", parent=window)
         if confirm:
             connect = sqlite3.connect(DB_FILE)
             c = connect.cursor()
             c.execute("DELETE FROM books WHERE id=?", (bid,))
             if c.rowcount == 0:
-                messagebox.showerror("Error", "No book found with that ID.")
+                messagebox.showerror("Error", "No book found with that ID.", parent=window)
             else:
                 connect.commit()
-                messagebox.showinfo("Success", "Book deleted successfully!")
+                messagebox.showinfo("Success", "Book deleted successfully!", parent=window)
                 window.destroy()
             connect.close()
 
