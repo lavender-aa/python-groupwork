@@ -4,7 +4,6 @@ import sqlite3
 
 # to fix:
 # ---------
-#   - no quit button on main menu
 #   - no cancel buttons on subsequent windows
 #   - buttons cannot be pressed via enter key when selected
 
@@ -78,9 +77,18 @@ def add_book():
             messagebox.showerror("Error", "A book with that ID already exists.", parent=window)
         finally:
             connect.close()
+    
+    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    def on_closing():
+        root.deiconify()
+        window.destroy()
 
     window = tk.Toplevel(root)
     window.title("Add Book")
+    
+    # hide root, make active again on cancel/window close
+    root.withdraw()
+    window.protocol("WM_DELETE_WINDOW", on_closing)
     
     # Book ID
     tk.Label(window, text = "Book ID:").grid(row = 0, column = 0, padx = 10, pady = 5, sticky = "e")
@@ -161,8 +169,17 @@ def update_book():
             window.destroy()
         connect.close()
         
+    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    def on_closing():
+        root.deiconify()
+        window.destroy()
+
     window = tk.Toplevel(root)
     window.title("Update Book")
+    
+    # hide root, make active again on cancel/window close
+    root.withdraw()
+    window.protocol("WM_DELETE_WINDOW", on_closing)
 
     # Search by Book ID to update.
     tk.Label(window, text="Enter Book ID to update:")\
@@ -220,8 +237,18 @@ def delete_book():
                 window.destroy()
             connect.close()
 
+    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    def on_closing():
+        root.deiconify()
+        window.destroy()
+
     window = tk.Toplevel(root)
     window.title("Delete Book")
+    
+    # hide root, make active again on cancel/window close
+    root.withdraw()
+    window.protocol("WM_DELETE_WINDOW", on_closing)
+    
     tk.Label(window, text="Enter Book ID to delete:")\
         .grid(row=0, column=0, padx=10, pady=5, sticky="e")
     entry_id = tk.Entry(window)
@@ -231,8 +258,18 @@ def delete_book():
 
 def list_books():
     """Open a window to list all defined books using a Treeview widget."""
+    
+    # used for pulling the root window back up when a toplevel is closed by hitting the x
+    def on_closing():
+        root.deiconify()
+        window.destroy()
+
     window = tk.Toplevel(root)
     window.title("List of Books")
+    
+    # hide root, make active again on cancel/window close
+    root.withdraw()
+    window.protocol("WM_DELETE_WINDOW", on_closing)
     
     tree = ttk.Treeview(window, columns=("ID", "Title", "Authors", "Category"), show="headings")
     tree.heading("ID", text="ID")
@@ -272,5 +309,6 @@ tk.Button(root, text="Add Book", width=20, command=add_book).pack(pady=5)
 tk.Button(root, text="Update Book", width=20, command=update_book).pack(pady=5)
 tk.Button(root, text="Delete Book", width=20, command=delete_book).pack(pady=5)
 tk.Button(root, text="List Books", width=20, command=list_books).pack(pady=5)
+tk.Button(root, text="Quit", width=20, command=root.destroy).pack(pady=5)
 
 root.mainloop()
