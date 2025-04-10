@@ -4,8 +4,6 @@ import sqlite3
 
 # to fix:
 # ---------
-#   - message boxes always show on main window instead of current
-#   - scrollbar not in correct position (in lists window)
 #   - no quit button on main menu
 #   - no cancel buttons on subsequent windows
 #   - buttons cannot be pressed via enter key when selected
@@ -247,12 +245,11 @@ def list_books():
     tree.column("Authors", width=150)
     tree.column("Category", width=100)
     
-    tree.pack(fill=tk.BOTH, expand=True)
-    
     # Adding a scrollbar for convenience.
     scrollbar = ttk.Scrollbar(window, orient="vertical", command=tree.yview)
-    tree.configure(yscroll=scrollbar.set)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    tree.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side='right', fill='y')
+    tree.pack(fill=tk.BOTH, expand=True)
     
     connect = sqlite3.connect(DB_FILE)
     c = connect.cursor()
