@@ -1,9 +1,15 @@
+# Assignment 4: GUI Book Database
+# Authors: Group 8
+#           - Bri Dulik
+#           - Lavender Wilson
+#           - Nik Roebuck
+
 import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 
 # Name of the SQLite database file.
-DB_FILE = "books.db"
+DB_FILE = "CMSC3380_Assignment4_Group8.db"
 
 def init_db():
     """Initialize the database and create the books table if it doesn't exist."""
